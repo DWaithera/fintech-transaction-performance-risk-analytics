@@ -1,106 +1,265 @@
-\# Fintech Transaction Performance \& Risk Analytics
+# 💳 Fintech Transaction Performance & Risk Analytics
 
+> **Business analytics on synthetic mobile-money transactions — turning transaction data into insights on performance, customer behavior, and financial risk.**
 
+**Python · SQL · DuckDB · Power BI · Pandas · Jupyter**
 
-Business analytics project analyzing synthetic mobile-money transactions to understand transaction performance, customer behavior, and fraud/risk patterns.
+---
 
+## 📌 Project Overview
 
+Financial transaction platforms generate millions of transactions, but raw transaction data does not directly answer business questions.
 
-\## Project Objectives
+This project analyzes a synthetic mobile-money transaction dataset to investigate:
 
+* **Transaction performance** — volume, value, transaction mix, and trends
+* **Customer behavior** — transaction patterns and customer activity
+* **Risk & fraud** — suspicious transaction patterns and fraud exposure
+* **Business KPIs** — metrics that can support operational monitoring and decision-making
+* **Data quality** — validation of transaction and balance data before analytical use
 
+The end product will combine **Python-based analysis, SQL transformations, DuckDB analytics, and an interactive Power BI dashboard.**
 
-\- Analyze transaction performance and transaction mix
+---
 
-\- Understand customer transaction behavior
+## 🎯 Business Questions
 
-\- Identify fraud and risk patterns
+| Area                  | Key Questions                                                      |
+| --------------------- | ------------------------------------------------------------------ |
+| **Performance**       | How much transaction value and volume flows through the platform?  |
+| **Transaction Mix**   | Which transaction types drive activity and value?                  |
+| **Customer Behavior** | How do customers transact across the platform?                     |
+| **Risk**              | What transaction patterns are associated with fraudulent activity? |
+| **Operations**        | When and where does transaction activity concentrate?              |
+| **Decision Support**  | Which KPIs should management monitor regularly?                    |
 
-\- Build business KPIs for transaction monitoring
+---
 
-\- Develop analytical datasets using Python, SQL, and DuckDB
+## 📊 Dataset
 
-\- Build an interactive Power BI dashboard
+### PaySim — Financial Mobile Money Simulator
 
+**Source:** [Kaggle — PaySim](https://www.kaggle.com/datasets/ealaxi/paysim1)
 
+PaySim is a **synthetic financial dataset** that simulates mobile-money transactions based on patterns observed in African mobile-money activity.
 
-\## Dataset
+The dataset contains transaction-level information including:
 
+* Transaction type
+* Transaction amount
+* Originating customer
+* Destination customer
+* Customer balances
+* Fraud indicators
+* Transaction time step
 
+> ⚠️ **Data note:** PaySim is synthetic. Findings from this project should therefore be interpreted as analytical patterns within the simulation, not as direct measurements of real-world mobile-money behavior.
 
-\*\*PaySim — A Financial Mobile Money Simulator\*\*
+### Data handling
 
-
-
-Source: https://www.kaggle.com/datasets/ealaxi/paysim1
-
-
-
-PaySim is a synthetic financial dataset modeling mobile-money transactions based on African mobile-money activity.
-
-
-
-The raw dataset is stored locally under:
-
-
-
-`data/raw/`
-
-
-
-Raw data is excluded from Git because of file size.
-
-
-
-\## Technology Stack
-
-
-
-\- Python
-
-\- Pandas
-
-\- SQL
-
-\- DuckDB
-
-\- Power BI
-
-\- Jupyter Notebook
-
-\- Git \& GitHub
-
-
-
-\## Project Structure
-
-
+Raw transaction data is stored locally in:
 
 ```text
+data/raw/
+```
 
-data/
+Raw CSV files are intentionally excluded from Git because of their size.
 
-├── raw/
+---
 
-└── processed/
+## 🏗️ Project Architecture
 
+```text
+                    ┌─────────────────────┐
+                    │      PaySim Data    │
+                    │   Synthetic Raw CSV │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Data Profiling    │
+                    │      Python         │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Data Quality &      │
+                    │ Validation          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ SQL / DuckDB        │
+                    │ Analytical Models   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Business KPIs       │
+                    │ & Risk Analytics    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    Power BI         │
+                    │ Executive Dashboard │
+                    └─────────────────────┘
+```
 
+---
 
-notebooks/
+## 🛠️ Technology Stack
 
-sql/
+| Layer                     | Technology                    |
+| ------------------------- | ----------------------------- |
+| **Data Analysis**         | Python, Pandas, NumPy         |
+| **Exploration**           | Jupyter Notebook              |
+| **Analytics Engineering** | SQL, DuckDB                   |
+| **Visualization**         | Power BI, Matplotlib, Seaborn |
+| **Version Control**       | Git, GitHub                   |
 
-dashboard/
+---
 
-docs/
+## 📁 Repository Structure
 
-src/
+```text
+fintech-transaction-performance-risk-analytics/
+│
+├── data/
+│   ├── raw/                 # Original source data — not committed
+│   └── processed/           # Clean analytical datasets
+│
+├── notebooks/
+│   └── 01_data_profiling.ipynb
+│
+├── sql/                     # Analytical SQL models
+│
+├── dashboard/               # Power BI dashboard assets
+│
+├── docs/                    # Documentation & data dictionary
+│
+├── src/                     # Reusable Python transformation logic
+│
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
 
+---
 
+## 🔎 Analytical Workflow
 
-README.md
+### 01 — Data Profiling
 
-requirements.txt
+Understand the structure and characteristics of the raw dataset.
 
-.gitignore
+**Outputs**
 
+* Dataset dimensions
+* Data types
+* Transaction distributions
+* Time coverage
+* Missing-value analysis
+* Duplicate analysis
+* Initial data-quality observations
+
+### 02 — Data Quality Validation
+
+Validate assumptions and identify anomalies before analytical modeling.
+
+### 03 — Transaction Performance
+
+Develop KPIs covering:
+
+* Transaction volume
+* Transaction value
+* Average transaction value
+* Transaction-type mix
+* Time-based activity
+
+### 04 — Customer Behavior
+
+Analyze:
+
+* Customer activity
+* Transaction frequency
+* Transaction values
+* Originator vs recipient behavior
+* Customer concentration
+
+### 05 — Risk & Fraud Analytics
+
+Investigate:
+
+* Fraud frequency
+* Fraud transaction value
+* Fraud by transaction type
+* Temporal fraud patterns
+* Suspicious transaction characteristics
+
+### 06 — SQL & DuckDB Analytical Layer
+
+Transform validated data into reusable analytical datasets.
+
+### 07 — Power BI Dashboard
+
+Build an interactive business dashboard for transaction performance and risk monitoring.
+
+---
+
+## 📈 Planned KPI Framework
+
+| KPI Category                | Example Metrics                                                 |
+| --------------------------- | --------------------------------------------------------------- |
+| **Transaction Performance** | Transaction Count, Transaction Value, Average Transaction Value |
+| **Customer Activity**       | Active Customers, Transactions per Customer                     |
+| **Transaction Mix**         | Type Distribution, Value by Transaction Type                    |
+| **Risk**                    | Fraud Rate, Fraud Value, Fraud by Transaction Type              |
+| **Time**                    | Hourly/Step Activity, Transaction Trends                        |
+| **Operational Monitoring**  | High-value Transactions, Anomalous Patterns                     |
+
+---
+
+## 🧠 Key Analytical Principle
+
+> **Profile first. Validate second. Transform third. Analyze fourth. Visualize last.**
+
+The project deliberately separates **data quality validation** from business analysis so that downstream insights are based on documented and reproducible assumptions.
+
+---
+
+## 🚧 Project Status
+
+**Current Phase:** 🟡 Project Setup & Data Profiling
+
+| Phase                          | Status         |
+| ------------------------------ | -------------- |
+| Repository Setup               | ✅ Complete     |
+| Dataset Acquisition            | 🔄 In Progress |
+| Data Profiling                 | ⏳ Pending      |
+| Data Quality Validation        | ⏳ Pending      |
+| SQL / DuckDB Modeling          | ⏳ Pending      |
+| KPI Development                | ⏳ Pending      |
+| Risk Analytics                 | ⏳ Pending      |
+| Power BI Dashboard             | ⏳ Pending      |
+| Final Business Recommendations | ⏳ Pending      |
+
+---
+
+## 📌 Portfolio Objective
+
+This project demonstrates the ability to move from:
+
+**Raw Data → Data Quality → Analytical Modeling → Business KPIs → Risk Insights → Decision Support**
+
+rather than simply producing charts from a raw dataset.
+
+---
+
+## 👤 Author
+
+**Damaris Waithera**
+
+Analytics Engineer · Data Analyst · Business Analytics
+
+[GitHub](https://github.com/DWaithera)
